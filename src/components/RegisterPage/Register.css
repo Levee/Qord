@@ -1,0 +1,78 @@
+.button {
+  min-height: 1.5em;
+  display: inline-block;
+  padding: 12px 36px;
+  /* margin: 40px 5px 5px 0px; */
+  cursor: pointer;
+  user-select: none;
+  opacity: 0.9;
+
+  color: #fff;
+  font-size: 1em;
+  letter-spacing: 1px;
+  text-shadow: rgba(0, 0, 0, 0.9) 0px 1px 2px;
+
+  background: #434343;
+  border: 1px solid #242424;
+
+  border-radius: 4px;
+  box-shadow: rgba(0, 0, 0, 0.5) 0px 2px 5px,
+    inset rgba(255, 255, 255, 0.25) 0px 1px 0px,
+    inset rgba(0, 0, 0, 0.25) 0px 0px 0px,
+    inset rgba(255, 255, 255, 0.03) 0px 20px 0px,
+    inset rgba(0, 0, 0, 0.15) 0px -20px 20px,
+    inset rgba(255, 255, 255, 0.05) 0px 20px 20px;
+}
+.button:active {
+  box-shadow: rgba(255, 255, 255, 0.25) 0px 1px 0px,
+    inset rgba(255, 255, 255, 0) 0px 1px 0px,
+    inset rgba(0, 0, 0, 0.5) 0px 0px 5px,
+    inset rgba(255, 255, 255, 0.03) 0px 20px 0px,
+    inset rgba(0, 0, 0, 0.15) 0px -20px 20px,
+    inset rgba(255, 255, 255, 0.05) 0px 20px 20px;
+}
+.shine {
+  display: block;
+  position: relative;
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#00ffffff',GradientType=1 );
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 1) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  padding: 0px 12px;
+  top: -12px;
+  left: -24px;
+  height: 1px;
+  box-shadow: rgba(255, 255, 255, 0.2) 0px 1px 5px;
+  transition: all 0.3s ease-in-out;
+}
+.button:hover .shine {
+  left: 24px;
+}
+.button:active .shine {
+  opacity: 0;
+}
+
+.button.gray {
+  background: #555;
+}
+.button.blue {
+  background: #3a617e;
+}
+.button.green {
+  background: #477343;
+}
+.button.red {
+  background: #723131;
+}
+.button.purple {
+  background: #4b3f5e;
+}
+.button.orange {
+  background: #624529;
+}
+.button.pink {
+  background: #be2a9e;
+}
