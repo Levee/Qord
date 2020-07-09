@@ -1,11 +1,19 @@
 .profile.bio {
   border: 1px solid #db2cb596;
   border-radius: 5px;
+  padding: 1rem;
+  background-color: inherit;
+  width: 50%;
+  height: 10rem;
 }
 
 .profile.bio:hover {
   border: 1px solid #db2cb5c9;
-  cursor: text;
+}
+
+.profile.bio.edit {
+  resize: vertical;
+  height: 10rem;
 }
 
 .profile.fullname {

@@ -1,14 +1,14 @@
 .button {
-  min-height: 1.5em;
+  min-height: 1rem;
   display: inline-block;
-  padding: 12px 36px;
-  /* margin: 40px 5px 5px 0px; */
+  padding: 12px 24px;
+  margin: 0 0.5rem;
   cursor: pointer;
   user-select: none;
   opacity: 0.9;
 
   color: #fff;
-  font-size: 1em;
+  font-size: 0.75rem;
   letter-spacing: 1px;
   text-shadow: rgba(0, 0, 0, 0.9) 0px 1px 2px;
 
