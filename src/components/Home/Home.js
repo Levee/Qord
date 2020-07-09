@@ -1,13 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import LogOutButton from '../LogOutButton/LogOutButton';
 
 const Home = (props) => (
   <div className='content'>
     <h1 id='welcome'>
-      Welcome, { props.user.fullname }!
+      Welcome, { props.user.fullname }! Here's what you missed:
     </h1>
-    <LogOutButton className='log-in' />
   </div>
 );
 

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 class Login extends Component {
   state = {
@@ -18,6 +19,7 @@ class Login extends Component {
           password: this.state.password,
         },
       });
+      this.props.history.push('/home');
     } else {
       this.props.dispatch({ type: 'LOGIN_INPUT_ERROR' });
     }
@@ -64,14 +66,19 @@ class Login extends Component {
               />
             </label>
           </div>
-          <div>
-            <input
-              className='log-in'
-              type='submit'
-              name='submit'
-              value='Log In'
-            />
-          </div>
+          <center>
+            <div className='button green'>
+              <div className='shine'>
+              </div>
+              <input
+                style={{ all: 'unset', width: '100%', height: '100%' }}
+                className='log-in'
+                type='submit'
+                name='submit'
+                value='Login'
+              />
+            </div>
+          </center>
         </form>
         <center>
           <button
@@ -92,6 +99,7 @@ class Login extends Component {
 // const mapStateToProps = ({errors}) => ({ errors });
 const mapStateToProps = state => ({
   errors: state.errors,
+  user: state.user,
 });
 
-export default connect(mapStateToProps)(Login);
+export default connect(mapStateToProps)(withRouter(Login));

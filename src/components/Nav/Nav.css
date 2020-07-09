@@ -10,6 +10,7 @@
   background-color: #db2cb5;
   border-bottom-left-radius: 15px;
   border-bottom-right-radius: 15px;
+  max-height: initial;
 }
 
 .nav-link {
@@ -23,10 +24,9 @@
   text-align: center;
   padding: 24px 10px;
   text-decoration: none;
-  font-size: 15px;
+  font-size: 18px;
+  font-variant: small-caps;
 
-  /* these last two make the logout button in
-  the nav bar look like another link */
   border: none;
   cursor: pointer;
   outline: 0;
@@ -34,7 +34,11 @@
 
 .nav-link:hover {
   background-color: #be2a9e;
-  border-bottom: 3px solid #c5ffe3;
+  box-shadow: inset 0px -3px 0px 0px mintcream;
+}
+
+.active-nav-link {
+  box-shadow: inset 0px -3px 0px 0px mintcream;
 }
 
 .nav-right {

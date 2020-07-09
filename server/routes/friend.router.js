@@ -1,9 +1,7 @@
 const express = require('express');
 const { rejectUnauthenticated } = require('../modules/authentication-middleware');
-const encryptLib = require('../modules/encryption');
 const pool = require('../modules/pool');
-const userStrategy = require('../strategies/user.strategy');
-
+const { default: Axios } = require('axios');
 const router = express.Router();
 
 router.get('/:search', (req, res) => {
@@ -18,8 +16,8 @@ router.get('/:search', (req, res) => {
     .catch(error => res.send(error).status(500));
 });
 
-router.get('/:user', (req, res) => {
-  req.params.user = req.user.id;
+router.get('/list/:id', (req, res) => {
+  const id = req.params.id;
   const queryText = `
     SELECT "refUser".fullname, array_agg("refFriend".fullname) AS "friends" FROM friend
       JOIN "user" AS "refUser" ON "refUser".id = friend.user_id
@@ -27,8 +25,8 @@ router.get('/:user', (req, res) => {
       WHERE "refUser".id = $1
       GROUP BY "refUser".fullname;`;
   pool
-    .query(queryText, [req.params.user])
-    .then(result => res.send(result.rows).status(418))
+    .query(queryText, [id])
+    .then(result => res.send(result.rows).status(200))
     .catch(error => res.send(error).status(500));
 });
 

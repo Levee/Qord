@@ -1,36 +1,39 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import LogOutButton from '../LogOutButton/LogOutButton';
 import './Nav.css';
 
 const Nav = (props) => (
   <div className="nav">
-    <Link to="/landing">
+    <NavLink to="/landing">
       <h2 className="nav-title">Qord</h2>
-    </Link>
+    </NavLink>
     <div className="nav-right">
-      <Link className="nav-link" to="/home">
+      {props.user.id && <NavLink activeClassName='active-nav-link' className="nav-link" to="/home">
         {/* Show this link if they are logged in or not,
         but call this link 'Home' if they are logged in,
         and call this link 'Login / Register' if they are not */}
-        {props.user.id ? 'Home' : 'Login / Register'}
-      </Link>
+        home
+      </NavLink>}
+      {!props.user.id && <NavLink activeClassName='active-nav-link' className='nav-link' to='/login'>
+        login
+      </NavLink>}
       {/* Show the link to the info page and the logout button if the user is logged in */}
       {props.user.id && (
         <>
-          <Link className='nav-link' to='/friends'>
-            Friends
-          </Link>
-          <Link className='nav-link' to='/games'>
-            Games
-          </Link>
-          <Link className='nav-link' to='/profile'>
-            Profile
-          </Link>
-          <Link className='nav-link' to='/settings'>
-            Settings
-          </Link>
+          <NavLink activeClassName='active-nav-link' className='nav-link' to='/friends'>
+            friends
+          </NavLink>
+          <NavLink activeClassName='active-nav-link' className='nav-link' to='/games'>
+            games
+          </NavLink>
+          <NavLink activeClassName='active-nav-link' className='nav-link' to='/profile'>
+            profile
+          </NavLink>
+          <NavLink activeClassName='active-nav-link' className='nav-link' to='/settings'>
+            settings
+          </NavLink>
           <LogOutButton className="nav-link"/>
         </>
       )}

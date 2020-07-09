@@ -1,0 +1,19 @@
+.profile.bio {
+  border: 1px solid #db2cb596;
+  border-radius: 5px;
+}
+
+.profile.bio:hover {
+  border: 1px solid #db2cb5c9;
+  cursor: text;
+}
+
+.profile.fullname {
+  font-weight: 300;
+  margin: 0;
+}
+
+.profile.username {
+  color: #5f6965;
+  margin-top: 0.25rem;
+}

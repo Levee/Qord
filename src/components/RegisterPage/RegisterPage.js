@@ -56,6 +56,7 @@ class RegisterPage extends Component {
                 name='fullname'
                 value={this.state.fullname}
                 onChange={this.handleInputChangeFor('fullname')}
+                placeholder='Enter your fullname...'
               />
             </label>
           </div>
@@ -67,6 +68,7 @@ class RegisterPage extends Component {
                 name='username'
                 value={this.state.username}
                 onChange={this.handleInputChangeFor('username')}
+                placeholder='Enter a username...'
               />
             </label>
           </div>
@@ -78,6 +80,7 @@ class RegisterPage extends Component {
                 name='email'
                 value={this.state.email}
                 onChange={this.handleInputChangeFor('email')}
+                placeholder='Enter your email...'
               />
             </label>
           </div>

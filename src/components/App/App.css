@@ -1,9 +1,10 @@
 * {
-  color: #fff;
+  color: mintcream;
 }
 
 body {
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  /* font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; */
+  font-family: 'Ubuntu', sans-serif;
   margin: 0px;
   background-color: #282c34;
 }
@@ -18,16 +19,21 @@ body {
 }
 
 form {
-  background-color: #dbd5d5;
   width: 20rem;
   margin: 2rem auto;
   padding: 2rem;
-  border-radius: 2px;
+  border: 1px solid #db2cb596;
+  border-radius: 5px;
+  background-color: #21252c;
+}
+
+form:hover {
+  border: 1px solid #db2cb5c9;
 }
 
 label {
   width: 100%;
-  color: initial;
+  color: mintcream;
 }
 
 input {

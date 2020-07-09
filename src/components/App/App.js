@@ -17,6 +17,7 @@ import Friends from '../Friends/Friends';
 import Games from '../Games/Games';
 import Profile from '../Profile/Profile';
 import Settings from '../Settings/Settings';
+import Login from '../Login/Login';
 
 class App extends Component {
   componentDidMount () {
@@ -31,7 +32,7 @@ class App extends Component {
           <Switch>
             <Redirect exact from='/' to='/landing' />
 
-            <ProtectedRoute
+            <Route
               exact
               path='/landing'
               component={Landing}
@@ -40,6 +41,11 @@ class App extends Component {
               exact
               path='/home'
               component={Home}
+            />
+            <Route
+              exact
+              path='/login'
+              component={Login}
             />
             <ProtectedRoute
               exact
