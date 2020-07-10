@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { takeLatest, put } from 'redux-saga/effects';
+import { put, takeEvery } from 'redux-saga/effects';
 
 function* fetchAllGames() {
   try {
@@ -28,9 +28,9 @@ function* fetchNews(action) {
 }
 
 function* gameSaga() {
-  yield takeLatest('FETCH_ALL_GAMES', fetchAllGames);
-  yield takeLatest('FETCH_SEARCH_RESULTS', fetchSearchResults);
-  yield takeLatest('FETCH_NEWS', fetchNews);
+  yield takeEvery('FETCH_ALL_GAMES', fetchAllGames);
+  yield takeEvery('FETCH_SEARCH_RESULTS', fetchSearchResults);
+  yield takeEvery('FETCH_NEWS', fetchNews);
 }
 
 export default gameSaga;

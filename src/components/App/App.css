@@ -45,7 +45,7 @@ input {
   color: initial;
 }
 
-.log-in,
+/* .log-in,
 .log-out,
 .register {
   background-color: #00acb0;
@@ -62,7 +62,7 @@ input {
 .log-out:hover,
 .register:hover {
   background-color: #008183;
-}
+} */
 
 /* This line makes the "Register" and "Login" buttons look like links */
 .link-button {
@@ -74,4 +74,29 @@ input {
   outline: 0;
   border-bottom: 1px solid #444;
   cursor: pointer;
+}
+
+button {
+  cursor: pointer;
+}
+
+.news-item {
+  width: 60%;
+  text-align: left;
+  margin: 2rem auto;
+  padding: 2rem;
+  border: 1px solid #db2cb596;
+  border-radius: 15px;
+  background-color: #21252c;
+  overflow-wrap: break-word;
+}
+
+.news-item:hover {
+  border: 1px solid #db2cb5c9;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
 }

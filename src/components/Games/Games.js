@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import News from '../News/News';
 
 class Games extends Component {
   state = {
@@ -10,6 +11,7 @@ class Games extends Component {
       <>
         <div className='content'>
           <p>This is the games page!</p>
+          <News />
         </div>
       </>
     )
