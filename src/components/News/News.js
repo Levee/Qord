@@ -2,6 +2,12 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import fuzzysort from 'fuzzysort';
 import NewsItems from '../NewsItems/NewsItems';
+import BarLoader from 'react-spinners/BarLoader';
+
+const override = `
+  border-radius: 100px;
+  border: 1px solid #db2cb5;
+`;
 
 class News extends Component {
   state = {
@@ -11,7 +17,6 @@ class News extends Component {
   }
 
   componentDidMount = () => {
-    console.log('component did mount');
     this.props.dispatch({ type: 'FETCH_ALL_GAMES' });
   }
 
@@ -34,9 +39,16 @@ class News extends Component {
   }
 
   render() {
-    const { search, news } = this.props;
+    const { search, news, loading } = this.props;
     return (
-      <>
+      <>{loading ?
+        <BarLoader
+          css={override}
+          height='10px'
+          width='50%'
+          color='#db2cb5'
+          loading={loading}
+        /> : <>
         <input
           type='text'
           name='game'
@@ -63,7 +75,7 @@ class News extends Component {
           }
         </datalist>
         <button onClick={this.getNews}>Get Game News!</button><br />
-        {news === null ? <h3>Enter an app ID above to get the latest news on a game!</h3> : <NewsItems />}
+        {news === null ? <h3>Enter an app ID above to get the latest news on a game!</h3> : <NewsItems />}</>}
       </>
     )
   }
@@ -74,6 +86,7 @@ const mapStateToProps = (state) => {
     games: state.games.games,
     search: state.games.search,
     news: state.games.news,
+    loading: state.games.loading,
   }
 }
 

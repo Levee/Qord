@@ -12,8 +12,7 @@
   background-color: #db2cb5;
   border-bottom-left-radius: 15px;
   border-bottom-right-radius: 15px;
-  max-height: initial;
-  margin-bottom: 5rem;
+  /* max-height: initial; */
 }
 
 .nav-link {

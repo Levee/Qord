@@ -3,8 +3,10 @@ import { put, takeEvery } from 'redux-saga/effects';
 
 function* fetchAllGames() {
   try {
+    yield put({ type: 'LOADING_BEGIN' });
     const response = yield axios.get('/api/steam');
     yield put({ type: 'SET_GAMES', payload: response.data.applist.apps });
+    yield put({ type: 'LOADING_END' });
   } catch (error) {
     alert('Unable to retrieve games from server.');
   }

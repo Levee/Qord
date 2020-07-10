@@ -13,7 +13,7 @@ router.get('/:id/:count', (req, res) => {
 
 router.get('/', (req, res) => {
   axios
-    .get(`https://api.steampowered.com/ISteamApps/GetAppList/v0002/?format=json`)
+    .get(`https://api.steampowered.com/ISteamApps/GetAppList/v2/`)
     .then(result => res.send(result.data))
     .catch(error => res.send(error).status(500));
 });

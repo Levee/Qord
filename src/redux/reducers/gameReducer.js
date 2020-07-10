@@ -27,8 +27,20 @@ const news = (state = null, action) => {
   }
 }
 
+const loading = (state = null, action) => {
+  switch (action.type) {
+    case 'LOADING_BEGIN':
+      return true;
+    case 'LOADING_END':
+      return false;
+    default:
+      return state;
+  }
+}
+
 export default combineReducers({
   games,
   search,
   news,
+  loading,
 })
