@@ -30,6 +30,7 @@ class RegisterPage extends Component {
   } // end registerUser
 
   handleInputChangeFor = propertyName => (event) => {
+    this.props.dispatch({ type: 'CLEAR_REGISTRATION_ERROR' });
     this.setState({
       [propertyName]: event.target.value,
     });
@@ -38,15 +39,15 @@ class RegisterPage extends Component {
   render() {
     return (
       <div>
-        {this.props.errors.registrationMessage && (
-          <h2
-            className='alert'
-            role='alert'
-          >
-            {this.props.errors.registrationMessage}
-          </h2>
-        )}
         <form onSubmit={this.registerUser}>
+          {this.props.errors.registrationMessage && (
+            <h4
+              className='alert'
+              role='alert'
+            >
+              {this.props.errors.registrationMessage}
+            </h4>
+          )}
           <h1>Register User</h1>
           <div>
             <label htmlFor='fullname'>

@@ -26,6 +26,7 @@ class Login extends Component {
   } // end login
 
   handleInputChangeFor = propertyName => (event) => {
+    this.props.dispatch({ type: 'CLEAR_LOGIN_ERROR' });
     this.setState({
       [propertyName]: event.target.value,
     });
@@ -34,15 +35,15 @@ class Login extends Component {
   render() {
     return (
       <div className='content'>
-        {this.props.errors.loginMessage && (
-          <h2
-            className='alert'
-            role='alert'
-          >
-            {this.props.errors.loginMessage}
-          </h2>
-        )}
         <form onSubmit={this.login}>
+          {this.props.errors.loginMessage && (
+            <h4
+              className='alert'
+              role='alert'
+            >
+              {this.props.errors.loginMessage}
+            </h4>
+          )}
           <h1>Login</h1>
           <div>
             <label htmlFor='username'>
