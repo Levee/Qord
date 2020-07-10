@@ -7,7 +7,7 @@ const LogOutButton = props => (
     className={props.className}
     onClick={() => {
       props.dispatch({ type: 'LOGOUT' });
-      props.history.push('/');
+      props.history.push('/home');
     }}
   >
     logout

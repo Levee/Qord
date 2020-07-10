@@ -17,7 +17,6 @@ router.get('/:search', (req, res) => {
 });
 
 router.get('/list/:id', (req, res) => {
-  const id = req.params.id;
   const queryText = `
     SELECT "refUser".fullname, array_agg("refFriend".fullname) AS "friends" FROM friend
       JOIN "user" AS "refUser" ON "refUser".id = friend.user_id
@@ -25,7 +24,7 @@ router.get('/list/:id', (req, res) => {
       WHERE "refUser".id = $1
       GROUP BY "refUser".fullname;`;
   pool
-    .query(queryText, [id])
+    .query(queryText, [req.user.id])
     .then(result => res.send(result.rows).status(200))
     .catch(error => res.send(error).status(500));
 });

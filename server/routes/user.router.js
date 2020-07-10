@@ -43,20 +43,20 @@ router.post('/logout', (req, res) => {
   res.sendStatus(200);
 });
 
-router.put('/update', (req, res) => {
+router.put('/update', rejectUnauthenticated, (req, res) => {
   const bio = req.body.bio;
-
   const queryText = `UPDATE "user" SET bio = $1 WHERE id = $2;`;
   pool
-    .query(queryText, [req.user.id, bio])
+    .query(queryText, [bio, req.user.id])
     .then(result => res.sendStatus(204))
     .catch(error => console.log(error));
 });
 
-router.delete('/delete/:id', (req, res) => {
-  const queryText = `DELETE FROM "user" WHERE id = $1;`;
+router.delete('/delete', rejectUnauthenticated, (req, res) => {
+  const queryText = `
+    DELETE FROM "user" WHERE id = $1;`;
   pool
-    .query(queryText, [req.params.id])
+    .query(queryText, [req.user.id])
     .then(result => res.sendStatus(200))
     .catch(error => console.log(error));
 });

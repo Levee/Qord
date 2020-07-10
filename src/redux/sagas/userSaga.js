@@ -24,16 +24,26 @@ function* fetchUser() {
   }
 }
 
-function* deleteUser(action) {
+function* updateUser(action) {
   try {
-    yield axios.delete(`/api/user/delete/${action.payload}`);
+    yield axios.put(`/api/user/update`, action.payload);
+    yield put({ type: 'FETCH_USER' });
   } catch (error) {
-    console.log('Failed request to delete user.', error);
+    console.log('Failed to update user.', error);
+  }
+}
+
+function* deleteUser() {
+  try {
+    yield axios.delete(`/api/user/delete`);
+  } catch (error) {
+    console.log('Failed to delete user.', error);
   }
 }
 
 function* userSaga() {
   yield takeLatest('FETCH_USER', fetchUser);
+  yield takeLatest('UPDATE_USER', updateUser);
   yield takeLatest('DELETE_USER', deleteUser);
 }
 

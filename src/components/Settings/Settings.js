@@ -13,7 +13,8 @@ class Settings extends Component {
           <p>This is the settings page!</p>
           <div className='content-settings'>
             <div className='button red' onClick={() => {
-              this.props.dispatch({ type: 'DELETE_USER', payload: this.props.user.id });
+              this.props.dispatch({ type: 'DELETE_USER' });
+              this.props.dispatch({ type: 'LOGOUT' });
             }}>
               <div className='shine'>
               </div>Close Account

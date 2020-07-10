@@ -12,7 +12,7 @@ class Profile extends Component {
   }
 
   render() {
-    const { user } = this.props;
+    const { user, dispatch } = this.props;
     return (
       <>
         <div className='content profile'>
@@ -21,11 +21,15 @@ class Profile extends Component {
           {!this.state.editBio ? (
             <>
               <div className='profile bio' /* onMouseEnter={() => this.setState({ editBio: true })} */>
-                <p>{user.bio}</p>
+                {user.bio}
               </div>
               <div className='button pink' onClick={() => {
                 this.setState({ editBio: true });
-
+                this.setState({
+                  fullname: user.fullname,
+                  username: user.username,
+                  bio: user.bio,
+                })
               }}>
                 <div className='shine'>
                 </div>Edit
@@ -35,9 +39,11 @@ class Profile extends Component {
             <>
               <textarea
                 className='profile bio edit'
-                value={user.bio}
+                value={this.state.bio}
+                maxLength='200'
                 onChange={(e) => this.setState({ bio: e.target.value })}
-                autoFocus='true'
+                autoFocus={true}
+                // style={{whiteSpace: 'pre-wrap'}}
               />
               <br />
               <div className='button red' onClick={() => {
@@ -48,7 +54,7 @@ class Profile extends Component {
               </div>
               <div className='button green' onClick={() => {
                 this.setState({ editBio: false });
-
+                dispatch({ type: 'UPDATE_USER', payload: {bio: this.state.bio }});
               }}>
                 <div className='shine'>
                 </div>Save
