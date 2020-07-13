@@ -1,0 +1,20 @@
+.input {
+  width: initial;
+  margin: 0.5rem;
+}
+
+.input.game {
+  width: 30%;
+}
+
+.input.post {
+  width: 5%;
+}
+
+.content-games {
+  display: inline;
+}
+
+.content.games.search {
+  padding: 0;
+}

@@ -12,7 +12,8 @@
   background-color: #db2cb5;
   border-bottom-left-radius: 15px;
   border-bottom-right-radius: 15px;
-  /* max-height: initial; */
+  z-index: 100;
+  box-shadow: 0px -15px 50px 10px #3b1a3b;
 }
 
 .nav-link {
@@ -28,7 +29,7 @@
   text-decoration: none;
   font-size: 18px;
   font-variant: small-caps;
-
+  user-select: none;
   border: none;
   cursor: pointer;
   outline: 0;

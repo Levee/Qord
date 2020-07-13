@@ -6,7 +6,7 @@ class NewsItems extends React.Component {
     const { news } = this.props;
     const renderHTML = (escapedHTML) => React.createElement("div", { dangerouslySetInnerHTML: { __html: escapedHTML } });
     return (
-      <>
+      <div className='content games list'>
         <h2>AppID: {news.appid}</h2>
         {
           news.newsitems.map((x, i) =>
@@ -30,7 +30,7 @@ class NewsItems extends React.Component {
             </div>
           )
         }
-      </>
+      </div>
     )
   }
 }

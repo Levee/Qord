@@ -8,22 +8,51 @@ class Friends extends Component {
 
   componentDidMount() {
     const { user } = this.props
-    this.props.dispatch({ type: 'FETCH_FRIENDS', payload: user.id });
+    this.props.dispatch({ type: 'FETCH_FRIENDS_REQ', payload: user.id });
+    this.props.dispatch({ type: 'FETCH_FRIENDS_ACC', payload: user.id });
   }
 
   render() {
-    const { friends } = this.props;
+    const { friends, search, dispatch } = this.props;
     return (
       <>
         <div className='content'>
           <p>This is the friends page!</p>
+          <input
+            onChange={e =>{
+              if(e.target.value) {
+                dispatch({ type: 'FETCH_SEARCH_RESULTS', payload: e.target.value });
+              } else {
+                return;
+              }
+            }}
+            autoComplete='off'
+            placeholder='Find new gamers...'
+            name='search'
+            list='search-results'
+          />
+          <datalist id='search-results'>
+            {
+              search.map((user, i) =>
+                <option
+                  key={i}
+                  user_id={user.id}
+                  value={user.username}
+                >
+                  {user.fullname}
+                </option>
+              )
+            }
+          </datalist>
+          {friends &&
           <ul>
-            {friends.map((friend, i) =>
+            {friends.req.map((friend, i) =>
               <div key={i}>
                 <h4>{friend}</h4>
               </div>
             )}
           </ul>
+          }
         </div>
       </>
     )
@@ -33,6 +62,7 @@ class Friends extends Component {
 const mapStateToProps = state => ({
   user: state.user,
   friends: state.friends,
+  search: state.search,
 });
 
 export default connect(mapStateToProps)(Friends);

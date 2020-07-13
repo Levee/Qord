@@ -10,7 +10,6 @@ class Games extends Component {
     return (
       <>
         <div className='content'>
-          <p>This is the games page!</p>
           <News />
         </div>
       </>

@@ -43,16 +43,13 @@ input {
   margin: 5% -0.5rem;
   padding: 0.5rem;
   color: initial;
+  font-size: 1rem;
 }
 
-/* .log-in,
+.log-in,
 .log-out,
 .register {
-  background-color: #00acb0;
-  border-radius: 4px;
-  color: #f8f8f8;
   padding: 0.5rem;
-  min-width: 100px;
   outline: 0;
   cursor: pointer;
   width: 7rem;
@@ -62,7 +59,7 @@ input {
 .log-out:hover,
 .register:hover {
   background-color: #008183;
-} */
+}
 
 /* This line makes the "Register" and "Login" buttons look like links */
 .link-button {

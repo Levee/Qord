@@ -1,17 +1,27 @@
 import { put, takeLatest } from 'redux-saga/effects';
-import Axios from 'axios';
+import axios from 'axios';
 
-function* fetchFriends(action) {
+function* fetchFriendsReq(action) {
   try {
-    const response = yield Axios.get(`/api/friends/list/${action.payload}`);
-    yield put({ type: 'SET_FRIENDS', payload: response.data });
+    const response = yield axios.get(`/api/friends/requested/${action.payload}`);
+    yield put({ type: 'SET_FRIENDS_REQ', payload: response.data });
   } catch (error) {
-    alert('Unable to retrieve friends from server.');
+    alert('Unable to retrieve requested friends from server.');
+  }
+}
+
+function* fetchFriendsAcc(action) {
+  try {
+    const response = yield axios.get(`/api/friends/accepted/${action.payload}`);
+    yield put({ type: 'SET_FRIENDS_ACC', payload: response.data });
+  } catch (error) {
+    alert('Unable to retrieve accepted friends from server.');
   }
 }
 
 function* friendSaga() {
-  yield takeLatest('FETCH_FRIENDS', fetchFriends);
+  yield takeLatest('FETCH_FRIENDS_REQ', fetchFriendsReq);
+  yield takeLatest('FETCH_FRIENDS_ACC', fetchFriendsAcc);
 }
 
 export default friendSaga;

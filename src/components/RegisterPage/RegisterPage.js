@@ -38,7 +38,7 @@ class RegisterPage extends Component {
 
   render() {
     return (
-      <div>
+      <div className='content'>
         <form onSubmit={this.registerUser}>
           {this.props.errors.registrationMessage && (
             <h4

@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import fuzzysort from 'fuzzysort';
 import NewsItems from '../NewsItems/NewsItems';
 import BarLoader from 'react-spinners/BarLoader';
+import './News.css';
 
 const override = `
   border-radius: 100px;
@@ -34,6 +35,10 @@ class News extends Component {
   }
 
   getNews = () => {
+    if(!this.state.id || !this.state.count) {
+      alert('Error! Inputs cannot be empty.');
+      return;
+    }
     console.log(this.state.id);
     this.props.dispatch({ type: 'FETCH_NEWS', payload: { id: this.state.id, count: this.state.count } });
   }
@@ -41,41 +46,54 @@ class News extends Component {
   render() {
     const { search, news, loading } = this.props;
     return (
-      <>{loading ?
+      <>{loading ? <>
+        <p>Games are currently loading...</p>
         <BarLoader
           css={override}
           height='10px'
           width='50%'
           color='#db2cb5'
           loading={loading}
-        /> : <>
-        <input
-          type='text'
-          name='game'
-          list='game-titles'
-          onChange={this.getGameId}
-          placeholder='Enter a title...'
-        />
-        <input
-          type='number'
-          value={this.state.count}
-          onChange={e => this.setState({ count: e.target.value })}
-          placeholder='Post #'
-        />
-        <datalist id='game-titles'>
-          {
-            search.map((game, i) =>
-              <option
-                onSelect={() => this.setState({ name: game.obj.name, id: game.obj.appid })}
-                key={i}
-              >
-                {game.obj.name}
-              </option>
-            )
-          }
-        </datalist>
-        <button onClick={this.getNews}>Get Game News!</button><br />
-        {news === null ? <h3>Enter an app ID above to get the latest news on a game!</h3> : <NewsItems />}</>}
+        /></> :
+        <><div className='content games search'>
+          <input
+            autoComplete='off'
+            className='input game'
+            type='text'
+            name='game'
+            list='game-titles'
+            onChange={this.getGameId}
+            placeholder='Enter a title...'
+          />
+          <input
+            autoComplete='off'
+            className='input post'
+            type='number'
+            value={this.state.count}
+            onChange={e => this.setState({ count: e.target.value })}
+            placeholder='Post #'
+          />
+          <datalist id='game-titles'>
+            {
+              search.map((game, i) =>
+                <option
+                  onSelect={() => this.setState({ name: game.obj.name, id: game.obj.appid })}
+                  key={i}
+                >
+                  {game.obj.name}
+                </option>
+              )
+            }
+          </datalist>
+          <div className='content-games'>
+            <div className='button pink' onClick={this.getNews}>
+              <div className='shine'>
+              </div>View Game News
+            </div>
+          </div>
+          </div>
+          {news === null ? <h3>Enter an app ID above to get the latest news on a game!</h3> : <NewsItems />}
+        </>}
       </>
     )
   }
