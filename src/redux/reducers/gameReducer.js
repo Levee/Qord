@@ -11,7 +11,7 @@ const games = (state = [], action) => {
 
 const search = (state = [], action) => {
   switch (action.type) {
-    case 'SET_SEARCH_RESULTS':
+    case 'SET_GAME_SEARCH_RESULTS':
       return [...action.payload];
     default:
       return state;

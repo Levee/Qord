@@ -28,7 +28,7 @@ class News extends Component {
     if (!event || !results.total) {
       return;
     } else {
-      dispatch({ type: 'FETCH_SEARCH_RESULTS', payload: [...results] });
+      dispatch({ type: 'FETCH_GAME_SEARCH_RESULTS', payload: [...results] });
       this.setState({ id: results[0].obj.appid });
       return results[0].obj.appid;
     }
@@ -92,7 +92,7 @@ class News extends Component {
             </div>
           </div>
           </div>
-          {news === null ? <h3>Enter an app ID above to get the latest news on a game!</h3> : <NewsItems />}
+          {news === null ? <h3>Enter an app ID above to get the latest news on a game!</h3> : <NewsItems name={this.state.name} />}
         </>}
       </>
     )

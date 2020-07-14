@@ -12,9 +12,9 @@ function* fetchAllGames() {
   }
 }
 
-function* fetchSearchResults(action) {
+function* fetchGameSearchResults(action) {
   try {
-    yield put({ type: 'SET_SEARCH_RESULTS', payload: action.payload });
+    yield put({ type: 'SET_GAME_SEARCH_RESULTS', payload: action.payload });
   } catch (error) {
     alert('Unable to retrieve search results.');
   }
@@ -31,7 +31,7 @@ function* fetchNews(action) {
 
 function* gameSaga() {
   yield takeEvery('FETCH_ALL_GAMES', fetchAllGames);
-  yield takeEvery('FETCH_SEARCH_RESULTS', fetchSearchResults);
+  yield takeEvery('FETCH_GAME_SEARCH_RESULTS', fetchGameSearchResults);
   yield takeEvery('FETCH_NEWS', fetchNews);
 }
 

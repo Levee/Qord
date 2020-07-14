@@ -2,12 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 class Friends extends Component {
-  state = {
-    
-  }
-
   componentDidMount() {
     const { user } = this.props
+    this.props.dispatch({ type: 'CLEAR_SEARCH_RESULTS' });
     this.props.dispatch({ type: 'FETCH_FRIENDS_REQ', payload: user.id });
     this.props.dispatch({ type: 'FETCH_FRIENDS_ACC', payload: user.id });
   }
@@ -37,9 +34,9 @@ class Friends extends Component {
                 <option
                   key={i}
                   user_id={user.id}
-                  value={user.username}
+                  value={user.fullname}
                 >
-                  {user.fullname}
+                  @{user.username}
                 </option>
               )
             }

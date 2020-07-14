@@ -18,3 +18,23 @@
 .content.games.search {
   padding: 0;
 }
+
+.content.games.list {
+  width: 60%;
+  padding: 0;
+  margin: 2rem auto;
+}
+
+.news-item {
+  text-align: left;
+  margin: 2rem 0;
+  padding: 2rem;
+  border: 1px solid #db2cb596;
+  border-radius: 15px;
+  background-color: #21252c;
+  overflow-wrap: break-word;
+}
+
+.news-item:hover {
+  border: 1px solid #db2cb5c9;
+}
