@@ -27,5 +27,5 @@ const userReducer = (state = {}, action) => {
 // state.user.page
 export default combineReducers({
   user: userReducer,
-  page: pageReducer,
+  // page: pageReducer,
 });
