@@ -45,12 +45,44 @@ router.get('/accepted/:id', (req, res) => {
 });
 
 router.post('/send', (req, res) => {
+  let uid1 = req.user.id;
+  let uid2 = req.body.uid;
+  if(uid1 > uid2) {
+    uid1 = req.body.id;
+    uid2 = req.user.id;
+  }
+
   const queryText = `
     INSERT INTO "request" (uid1, uid2)
       VALUES ($1, $2);`;
   pool
-    .query(queryText, [req.user.id, req.body.uid])
+    .query(queryText, [uid1, uid2])
     .then(result => res.sendStatus(200))
+    .catch(error => console.log(error));
+});
+
+router.post('/accept', (req, res) => {
+  let uid1 = req.user.id;
+  let uid2 = req.body.uid;
+  if (uid1 > uid2) {
+    uid1 = req.body.id;
+    uid2 = req.user.id;
+  }
+
+  const postQueryText = `
+    INSERT INTO "friend" (uid1, uid2)
+      VALUES ($1, $2);`;
+  const deleteQueryText = `
+    DELETE FROM "request"
+      WHERE uid1 = $1 AND uid2 = $2;`;
+  pool
+    .query(postQueryText, [uid1, uid2])
+    .then(result => {
+      pool
+        .query(deleteQueryText, [uid1, uid2])
+        .then(result => res.sendStatus(200))
+        .catch(error => console.log(error));
+    })
     .catch(error => console.log(error));
 });
 

@@ -75,6 +75,20 @@ class Friends extends Component {
                 {friends.req_in.map((friend, i) =>
                   <div key={i}>
                     <h4>{friend}</h4>
+                    <button
+                      onClick={() => {
+
+                      }}
+                    >
+                      Accept
+                    </button>
+                    <button
+                      onClick={() => {
+
+                      }}
+                    >
+                      Reject
+                    </button>
                   </div>
                 )}
               </ul>

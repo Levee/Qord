@@ -8,6 +8,13 @@ class NewsItems extends Component {
     return (
       <div className='content games list'>
         <h1>AppID: {news.appid}</h1>
+        <button
+          onClick={e => {
+
+          }}
+        >
+          Save to Library
+        </button>
         {
           news.newsitems.map((x, i) =>
             <div className='news-item' key={i}>
