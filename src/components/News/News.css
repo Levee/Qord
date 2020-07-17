@@ -38,3 +38,11 @@
 .news-item:hover {
   border: 1px solid #db2cb5c9;
 }
+
+.news-item a {
+  color: teal;
+}
+
+.news-item a:visited {
+  color: plum;
+}

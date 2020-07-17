@@ -11,15 +11,15 @@ const userReducer = (state = {}, action) => {
   }
 };
 
-const pageReducer = (state = {}, action) => {
-  switch (action.type) {
-    case 'SET_USER_PAGE':
-      console.log([...action.payload]);
-      return [...action.payload];
-    default:
-      return state;
-  }
-};
+// const pageReducer = (state = {}, action) => {
+//   switch (action.type) {
+//     case 'SET_USER_PAGE':
+//       console.log([...action.payload]);
+//       return [...action.payload];
+//     default:
+//       return state;
+//   }
+// };
 
 // user will be on the redux state at:
 // state.user.user

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import User from '../User/User';
 
 class Friends extends Component {
   state = {
@@ -11,7 +10,8 @@ class Friends extends Component {
   componentDidMount() {
     const { user, dispatch } = this.props
     dispatch({ type: 'CLEAR_SEARCH_RESULTS' });
-    dispatch({ type: 'FETCH_FRIENDS_REQ', payload: user.id });
+    dispatch({ type: 'FETCH_FRIENDS_REQ_OUT', payload: user.id });
+    dispatch({ type: 'FETCH_FRIENDS_REQ_IN', payload: user.id });
     dispatch({ type: 'FETCH_FRIENDS_ACC', payload: user.id });
   }
 
@@ -50,7 +50,7 @@ class Friends extends Component {
                   @{user.username}<br />
                   <button
                     onClick={() => {
-                      dispatch({ type: 'SEND_FRIEND_REQ', payload: { uid1: this.props.user.id, uid2: user.id}})
+                      dispatch({ type: 'SEND_FRIEND_REQ', payload: { uid: user.id }});
                     }}
                   >
                     Add Friend
@@ -59,15 +59,26 @@ class Friends extends Component {
               )
             }
           </div>
-          {this.state.display_page && <User />}
+          {/* {this.state.display_page && <User />} */}
           {friends &&
-          <ul>
-            {friends.req.map((friend, i) =>
-              <div key={i}>
-                <h4>{friend}</h4>
-              </div>
-            )}
-          </ul>
+            <>
+              <h2>Outgoing Requests</h2>
+              <ul>
+                {friends.req_out.map((friend, i) =>
+                  <div key={i}>
+                    <h4>{friend}</h4>
+                  </div>
+                )}
+              </ul>
+              <h2>Incoming Requests</h2>
+              <ul>
+                {friends.req_in.map((friend, i) =>
+                  <div key={i}>
+                    <h4>{friend}</h4>
+                  </div>
+                )}
+              </ul>
+            </>
           }
         </div>
       </>

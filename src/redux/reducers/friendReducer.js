@@ -1,9 +1,18 @@
 import { combineReducers } from "redux";
 
-const friendReqReducer = (state = [], action) => {
+const friendReqOutReducer = (state = [], action) => {
   switch (action.type) {
-    case 'SET_FRIENDS_REQ':
-      return [...action.payload[0].requests];
+    case 'SET_FRIENDS_REQ_OUT':
+      return [...action.payload[0].outgoing];
+    default:
+      return state;
+  }
+}
+
+const friendReqInReducer = (state = [], action) => {
+  switch (action.type) {
+    case 'SET_FRIENDS_REQ_IN':
+      return [...action.payload[0].incoming];
     default:
       return state;
   }
@@ -19,7 +28,8 @@ const friendAccReducer = (state = [], action) => {
 }
 
 const friendReducer = combineReducers({
-  req: friendReqReducer,
+  req_out: friendReqOutReducer,
+  req_in: friendReqInReducer,
   acc: friendAccReducer,
 })
 
