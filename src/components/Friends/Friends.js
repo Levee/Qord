@@ -20,7 +20,7 @@ class Friends extends Component {
     return (
       <>
         <div className='content'>
-          <p>This is the friends page!</p>
+          {/* <p>This is the friends page!</p> */}
           <input
             onChange={e =>{
               if(e.target.value) {
@@ -50,7 +50,7 @@ class Friends extends Component {
                   @{user.username}<br />
                   <button
                     onClick={() => {
-                      dispatch({ type: 'SEND_FRIEND_REQ', payload: { uid: user.id }});
+                      dispatch({ type: 'FRIEND_REQ_SEND', payload: { id: user.id }});
                     }}
                   >
                     Add Friend
@@ -66,7 +66,14 @@ class Friends extends Component {
               <ul>
                 {friends.req_out.map((friend, i) =>
                   <div key={i}>
-                    <h4>{friend}</h4>
+                    <h4>{friend[0]}</h4>
+                    <button 
+                      onClick={() => {
+                        dispatch({ type: 'FRIEND_REQ_CANCEL', payload: { id: friend[1] } });
+                      }}
+                    >
+                      Cancel
+                    </button>
                   </div>
                 )}
               </ul>
@@ -77,17 +84,32 @@ class Friends extends Component {
                     <h4>{friend}</h4>
                     <button
                       onClick={() => {
-
+                        dispatch({ type: 'FRIEND_REQ_ACCEPT', payload: { id: friend[1] } });
                       }}
                     >
                       Accept
                     </button>
                     <button
                       onClick={() => {
-
+                        dispatch({ type: 'FRIEND_REQ_REJECT', payload: { id: friend[1] } });
                       }}
                     >
                       Reject
+                    </button>
+                  </div>
+                )}
+              </ul>
+              <h2>All Friends</h2>
+              <ul>
+                {friends.acc.map((friend, i) =>
+                  <div key={i}>
+                    <h4>{friend}</h4>
+                    <button
+                      onClick={() => {
+
+                      }}
+                    >
+                      Remove
                     </button>
                   </div>
                 )}

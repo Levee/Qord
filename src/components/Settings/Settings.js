@@ -49,7 +49,7 @@ class Settings extends Component {
     return (
       <>
         <div className='content'>
-          <p>This is the settings page!</p>
+          {/* <p>This is the settings page!</p> */}
           <div className='content-settings'>
             <div className='button red' onClick={() => {
               this.closeAccountPopup();

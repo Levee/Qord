@@ -1,6 +1,6 @@
 import { combineReducers } from "redux";
 
-const games = (state = [], action) => {
+const gamesReducer = (state = [], action) => {
   switch (action.type) {
     case 'SET_GAMES':
       return action.payload;
@@ -9,7 +9,7 @@ const games = (state = [], action) => {
   }
 }
 
-const search = (state = [], action) => {
+const searchReducer = (state = [], action) => {
   switch (action.type) {
     case 'SET_GAME_SEARCH_RESULTS':
       return [...action.payload];
@@ -18,7 +18,7 @@ const search = (state = [], action) => {
   }
 }
 
-const news = (state = null, action) => {
+const newsReducer = (state = null, action) => {
   switch (action.type) {
     case 'SET_NEWS':
       return action.payload;
@@ -27,7 +27,7 @@ const news = (state = null, action) => {
   }
 }
 
-const loading = (state = null, action) => {
+const loadingReducer = (state = null, action) => {
   switch (action.type) {
     case 'LOADING_BEGIN':
       return true;
@@ -38,9 +38,19 @@ const loading = (state = null, action) => {
   }
 }
 
+const libraryReducer = (state = [], action) => {
+  switch (action.type) {
+    case 'SET_LIBRARY':
+      return [...action.payload];
+    default:
+      return state;
+  }
+}
+
 export default combineReducers({
-  games,
-  search,
-  news,
-  loading,
-})
+  games: gamesReducer,
+  search: searchReducer,
+  news: newsReducer,
+  loading: loadingReducer,
+  library: libraryReducer,
+});

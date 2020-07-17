@@ -88,7 +88,7 @@ class News extends Component {
           <div className='content-games'>
             <div className='button pink' onClick={this.getNews}>
               <div className='shine'>
-              </div>View Game News
+              </div>View Game
             </div>
           </div>
           </div>
