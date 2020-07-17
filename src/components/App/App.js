@@ -17,6 +17,7 @@ import Friends from '../Friends/Friends';
 import Games from '../Games/Games';
 import Profile from '../Profile/Profile';
 import Settings from '../Settings/Settings';
+import User from '../User/User';
 
 class App extends Component {
   componentDidMount () {
@@ -55,6 +56,11 @@ class App extends Component {
               exact
               path='/profile'
               component={Profile}
+            />
+            <ProtectedRoute
+              exact
+              path='/user'
+              component={User}
             />
             <ProtectedRoute
               exact

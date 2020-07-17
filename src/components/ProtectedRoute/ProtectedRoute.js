@@ -58,7 +58,7 @@ const ProtectedRoute = (props) => {
 // const mapStateToProps = ({ user, loginMode }) => ({ user, loginMode });
 const mapStateToProps = (state) => {
   return {
-    user: state.user,
+    user: state.user.user,
     loginMode: state.loginMode,
   }
 }

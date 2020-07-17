@@ -1,3 +1,5 @@
+import { combineReducers } from "redux";
+
 const userReducer = (state = {}, action) => {
   switch (action.type) {
     case 'SET_USER':
@@ -9,6 +11,21 @@ const userReducer = (state = {}, action) => {
   }
 };
 
+const pageReducer = (state = {}, action) => {
+  switch (action.type) {
+    case 'SET_USER_PAGE':
+      console.log([...action.payload]);
+      return [...action.payload];
+    default:
+      return state;
+  }
+};
+
 // user will be on the redux state at:
-// state.user
-export default userReducer;
+// state.user.user
+// external users will be on the redux state at:
+// state.user.page
+export default combineReducers({
+  user: userReducer,
+  page: pageReducer,
+});

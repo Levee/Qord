@@ -100,7 +100,7 @@ class Login extends Component {
 // const mapStateToProps = ({errors}) => ({ errors });
 const mapStateToProps = state => ({
   errors: state.errors,
-  user: state.user,
+  user: state.user.user,
 });
 
 export default connect(mapStateToProps)(withRouter(Login));

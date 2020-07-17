@@ -1,12 +1,18 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import User from '../User/User';
 
 class Friends extends Component {
+  state = {
+    display_page: false,
+  }
+
   componentDidMount() {
-    const { user } = this.props
-    this.props.dispatch({ type: 'CLEAR_SEARCH_RESULTS' });
-    this.props.dispatch({ type: 'FETCH_FRIENDS_REQ', payload: user.id });
-    this.props.dispatch({ type: 'FETCH_FRIENDS_ACC', payload: user.id });
+    const { user, dispatch } = this.props
+    dispatch({ type: 'CLEAR_SEARCH_RESULTS' });
+    dispatch({ type: 'FETCH_FRIENDS_REQ', payload: user.id });
+    dispatch({ type: 'FETCH_FRIENDS_ACC', payload: user.id });
   }
 
   render() {
@@ -28,19 +34,32 @@ class Friends extends Component {
             name='search'
             list='search-results'
           />
-          <datalist id='search-results'>
+          <div id='search-results'>
             {
               search.map((user, i) =>
-                <option
+                <div
                   key={i}
-                  user_id={user.id}
-                  value={user.fullname}
+                  // user_id={user.id}
+                  // onClick={e => {
+                  //   console.log(user);
+                  //   dispatch({ type: 'FETCH_USER_PAGE', payload: user.id });
+                  //   this.setState({ display_page: true });
+                  // }}
                 >
-                  @{user.username}
-                </option>
+                  {user.id}, {user.fullname}<br />
+                  @{user.username}<br />
+                  <button
+                    onClick={() => {
+                      dispatch({ type: 'SEND_FRIEND_REQ', payload: { uid1: this.props.user.id, uid2: user.id}})
+                    }}
+                  >
+                    Add Friend
+                  </button>
+                </div>
               )
             }
-          </datalist>
+          </div>
+          {this.state.display_page && <User />}
           {friends &&
           <ul>
             {friends.req.map((friend, i) =>
@@ -57,9 +76,9 @@ class Friends extends Component {
 }
 
 const mapStateToProps = state => ({
-  user: state.user,
+  user: state.user.user,
   friends: state.friends,
   search: state.search,
 });
 
-export default connect(mapStateToProps)(Friends);
+export default connect(mapStateToProps)(withRouter(Friends));

@@ -41,10 +41,20 @@ function* deleteUser() {
   }
 }
 
+function* fetchUserPage(action) {
+  try {
+    const response = yield axios.get(`/api/user/${action.payload}`);
+    yield put({ type: 'SET_USER_PAGE', payload: response.data });
+  } catch (error) {
+    console.log('Failed to retrieve user\'s page.', error);
+  }
+}
+
 function* userSaga() {
   yield takeLatest('FETCH_USER', fetchUser);
   yield takeLatest('UPDATE_USER', updateUser);
   yield takeLatest('DELETE_USER', deleteUser);
+  yield takeLatest('FETCH_USER_PAGE', fetchUserPage);
 }
 
 export default userSaga;

@@ -3,6 +3,7 @@ const { rejectUnauthenticated } = require('../modules/authentication-middleware'
 const encryptLib = require('../modules/encryption');
 const pool = require('../modules/pool');
 const userStrategy = require('../strategies/user.strategy');
+const { query } = require('../modules/pool');
 
 const router = express.Router();
 
@@ -59,6 +60,16 @@ router.delete('/delete', rejectUnauthenticated, (req, res) => {
     .query(queryText, [req.user.id])
     .then(result => res.sendStatus(200))
     .catch(error => console.log(error));
+});
+
+router.get('/:id', (req, res ) => {
+  const queryText = `
+    SELECT id, fullname, username, avatar_url, bio FROM "user"
+      WHERE id = $1;`;
+  pool
+    .query(queryText, [req.params.id])
+    .then(result => res.send(result.rows).status(200))
+    .catch(error => res.send(error).status(500));
 });
 
 module.exports = router;

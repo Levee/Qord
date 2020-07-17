@@ -8,7 +8,9 @@ import './Footer.css'
 
 const Footer = () => (
   <footer>
-    &copy; Qord
+    <center>
+      &copy; Qord
+    </center>
   </footer>
 );
 

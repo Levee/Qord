@@ -3,7 +3,7 @@ import { combineReducers } from "redux";
 const friendReqReducer = (state = [], action) => {
   switch (action.type) {
     case 'SET_FRIENDS_REQ':
-      return [...action.payload[0].friends];
+      return [...action.payload[0].requests];
     default:
       return state;
   }
