@@ -39,7 +39,7 @@ function* friendReqSend(action) {
 
 function* friendReqCancel(action) {
   try {
-    yield axios.delete('/api/friends/cancel', action.payload);
+    yield axios.put('/api/friends/cancel', action.payload);
     yield put({ type: 'FETCH_FRIENDS_REQ_OUT' });
   } catch (error) {
     console.log('Unable to cancel friend request.', error);
@@ -49,8 +49,8 @@ function* friendReqCancel(action) {
 function* friendReqAccept(action) {
   try {
     yield axios.post(`/api/friends/accept`, action.payload);
-    yield put({ type: 'FETCH_FRIENDS_REQ_IN' });
     yield put({ type: 'FETCH_FRIENDS_ACC' });
+    yield put({ type: 'FETCH_FRIENDS_REQ_IN' });
   } catch (error) {
     console.log('Unable to accept friend request.', error);
   }
@@ -58,7 +58,7 @@ function* friendReqAccept(action) {
 
 function* friendReqReject(action) {
   try {
-    yield axios.delete(`/api/friends/reject`, action.payload);
+    yield axios.put(`/api/friends/reject`, action.payload);
     yield put({ type: 'FETCH_FRIENDS_REQ_IN' });
   } catch (error) {
     console.log('Unable to reject friend request.', error);
@@ -67,7 +67,7 @@ function* friendReqReject(action) {
 
 function* deleteFriend(action) {
   try {
-    yield axios.delete(`/api/friends/delete`, action.payload);
+    yield axios.put(`/api/friends/delete`, action.payload);
     yield put({ type: 'FETCH_FRIENDS_ACC' });
   } catch (error) {
     console.log('Unable to delete friend.', error);

@@ -70,6 +70,7 @@ class Friends extends Component {
                     <button 
                       onClick={() => {
                         dispatch({ type: 'FRIEND_REQ_CANCEL', payload: { id: friend[1] } });
+                        console.log(friend[1]);
                       }}
                     >
                       Cancel
@@ -81,7 +82,7 @@ class Friends extends Component {
               <ul>
                 {friends.req_in.map((friend, i) =>
                   <div key={i}>
-                    <h4>{friend}</h4>
+                    <h4>{friend[0]}</h4>
                     <button
                       onClick={() => {
                         dispatch({ type: 'FRIEND_REQ_ACCEPT', payload: { id: friend[1] } });
@@ -103,10 +104,11 @@ class Friends extends Component {
               <ul>
                 {friends.acc.map((friend, i) =>
                   <div key={i}>
-                    <h4>{friend}</h4>
+                    <h4>{friend[1]}</h4>
+                    <h5><em>@{friend[2]}</em></h5>
                     <button
                       onClick={() => {
-
+                        dispatch({ type: 'DELETE_FRIEND', payload: { id: friend[0] } });
                       }}
                     >
                       Remove

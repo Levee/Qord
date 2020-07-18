@@ -19,15 +19,16 @@ router.get('/outgoing', (req, res) => {
   const queryText = `
     SELECT array_agg(
       ARRAY[
-      CASE
-        WHEN "request".from = "refUid1".id THEN "refUid2".fullname
-        WHEN "request".from = "refUid2".id THEN "refUid1".fullname
-      END
-      ,
-      CASE
-        WHEN "isFrom".id = "refUid1".id THEN CAST("refUid2".id AS VARCHAR)
-        WHEN "isFrom".id = "refUid2".id THEN CAST("refUid1".id AS VARCHAR)
-      END]) AS "outgoing" FROM "request"
+        CASE
+          WHEN "request".from = "refUid1".id THEN "refUid2".fullname
+          WHEN "request".from = "refUid2".id THEN "refUid1".fullname
+        END
+        ,
+        CASE
+          WHEN "isFrom".id = "refUid1".id THEN CAST("refUid2".id AS VARCHAR)
+          WHEN "isFrom".id = "refUid2".id THEN CAST("refUid1".id AS VARCHAR)
+        END
+      ]) AS "outgoing" FROM "request"
       JOIN "user" AS "refUid1" ON "refUid1".id = "request".uid1
       JOIN "user" AS "refUid2" ON "refUid2".id = "request".uid2
       JOIN "user" AS "isFrom" ON "isFrom".id = "request".from
@@ -42,10 +43,17 @@ router.get('/outgoing', (req, res) => {
 router.get('/incoming', (req, res) => {
   const queryText = `
     SELECT array_agg(
-      CASE
-        WHEN "request".from <> "refUid1".id THEN "refUid2".fullname
-        WHEN "request".from <> "refUid2".id THEN "refUid1".fullname
-      END) AS "incoming" FROM "request"
+      ARRAY[
+        CASE
+          WHEN "request".from <> "refUid1".id THEN "refUid2".fullname
+          WHEN "request".from <> "refUid2".id THEN "refUid1".fullname
+        END
+        ,
+        CASE
+          WHEN "isFrom".id = "refUid1".id THEN CAST("refUid1".id AS VARCHAR)
+          WHEN "isFrom".id = "refUid2".id THEN CAST("refUid2".id AS VARCHAR)
+        END
+      ]) AS "incoming" FROM "request"
       JOIN "user" AS "refUid1" ON "refUid1".id = "request".uid1
       JOIN "user" AS "refUid2" ON "refUid2".id = "request".uid2
       JOIN "user" AS "isFrom" ON "isFrom".id = "request".from
@@ -59,10 +67,26 @@ router.get('/incoming', (req, res) => {
 // get accepted friend requests (get friends)
 router.get('/accepted', (req, res) => {
   const queryText = `
-    SELECT "refUid1".fullname, array_agg("refUid2".fullname) AS "friends" FROM "friend"
+    SELECT array_agg(
+      ARRAY[
+        CASE
+          WHEN "refUid1".id = $1 THEN CAST("refUid2".id AS VARCHAR)
+          WHEN "refUid2".id = $1 THEN CAST("refUid1".id AS VARCHAR)
+        END
+        ,
+        CASE
+          WHEN "refUid1".id = $1 THEN "refUid2".fullname
+          WHEN "refUid2".id = $1 THEN "refUid1".fullname
+        END
+        ,
+        CASE
+          WHEN "refUid1".id = $1 THEN "refUid2".username
+          WHEN "refUid2".id = $1 THEN "refUid1".username
+        END
+      ]) AS "friends" FROM "friend"
       JOIN "user" AS "refUid1" ON "refUid1".id = "friend".uid1
       JOIN "user" AS "refUid2" ON "refUid2".id = "friend".uid2
-      WHERE "refUid1".id = $1
+      WHERE ("refUid1".id = $1 OR "refUid2".id = $1)
       GROUP BY "refUid1".fullname;`;
   pool
     .query(queryText, [req.user.id])
@@ -87,7 +111,7 @@ router.post('/send', (req, res) => {
     .catch(error => console.log(error));
 });
 
-router.delete('/cancel', (req, res) => {
+router.put('/cancel', (req, res) => {
   const queryText = `
     DELETE FROM "request" WHERE "from" = $1
       AND (uid1 = $2 OR uid2 = $2);`;
@@ -99,7 +123,7 @@ router.delete('/cancel', (req, res) => {
 
 router.post('/accept', (req, res) => {
   let uid1 = req.user.id;
-  let uid2 = req.body.uid;
+  let uid2 = req.body.id;
   if (uid1 > uid2) {
     uid1 = req.body.id;
     uid2 = req.user.id;
@@ -122,9 +146,9 @@ router.post('/accept', (req, res) => {
     .catch(error => console.log(error));
 });
 
-router.delete('/reject', (req, res) => {
+router.put('/reject', (req, res) => {
   const queryText = `
-    DELETE FROM "request" WHERE FROM = $1
+    DELETE FROM "request" WHERE "request".from = $1
       AND (uid1 = $2 OR uid2 = $2);`;
   pool
     .query(queryText, [req.body.id, req.user.id])
@@ -132,9 +156,9 @@ router.delete('/reject', (req, res) => {
     .catch(error => console.log(error));
 });
 
-router.delete('/delete', (req, res) => {
+router.put('/delete', (req, res) => {
   let uid1 = req.user.id;
-  let uid2 = req.body.uid;
+  let uid2 = req.body.id;
   if (uid1 > uid2) {
     uid1 = req.body.id;
     uid2 = req.user.id;
