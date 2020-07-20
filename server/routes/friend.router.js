@@ -4,7 +4,7 @@ const pool = require('../modules/pool');
 const router = express.Router();
 
 // get pending friend requests
-router.get('/outgoing', (req, res) => {
+router.get('/outgoing', rejectUnauthenticated, (req, res) => {
   const queryText = `
     SELECT array_agg(
       ARRAY[
@@ -47,7 +47,7 @@ router.get('/outgoing', (req, res) => {
     .catch(error => res.send(error).status(500));
 });
 
-router.get('/incoming', (req, res) => {
+router.get('/incoming', rejectUnauthenticated, (req, res) => {
   const queryText = `
     SELECT array_agg(
       ARRAY[
@@ -72,7 +72,7 @@ router.get('/incoming', (req, res) => {
 });
 
 // get accepted friend requests (get friends)
-router.get('/accepted', (req, res) => {
+router.get('/accepted', rejectUnauthenticated, (req, res) => {
   const queryText = `
     SELECT array_agg(
       ARRAY[
@@ -101,7 +101,7 @@ router.get('/accepted', (req, res) => {
     .catch(error => res.send(error).status(500));
 });
 
-router.post('/send', (req, res) => {
+router.post('/send', rejectUnauthenticated, (req, res) => {
   let uid1 = req.user.id;
   let uid2 = req.body.id;
   if (uid1 > uid2) {
@@ -118,7 +118,7 @@ router.post('/send', (req, res) => {
     .catch(error => console.log(error));
 });
 
-router.put('/cancel', (req, res) => {
+router.put('/cancel', rejectUnauthenticated, (req, res) => {
   const queryText = `
     DELETE FROM "request" WHERE "from" = $1
       AND (uid1 = $2 OR uid2 = $2);`;
@@ -128,7 +128,7 @@ router.put('/cancel', (req, res) => {
     .catch(error => console.log(error));
 });
 
-router.post('/accept', (req, res) => {
+router.post('/accept', rejectUnauthenticated, (req, res) => {
   let uid1 = req.user.id;
   let uid2 = req.body.id;
   if (uid1 > uid2) {
@@ -153,7 +153,7 @@ router.post('/accept', (req, res) => {
     .catch(error => console.log(error));
 });
 
-router.put('/reject', (req, res) => {
+router.put('/reject', rejectUnauthenticated, (req, res) => {
   const queryText = `
     DELETE FROM "request" WHERE "request".from = $1
       AND (uid1 = $2 OR uid2 = $2);`;
@@ -163,7 +163,7 @@ router.put('/reject', (req, res) => {
     .catch(error => console.log(error));
 });
 
-router.put('/delete', (req, res) => {
+router.put('/delete', rejectUnauthenticated, (req, res) => {
   let uid1 = req.user.id;
   let uid2 = req.body.id;
   if (uid1 > uid2) {

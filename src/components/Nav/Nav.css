@@ -3,6 +3,7 @@
   display: inline-block;
   color: mintcream;
   padding-left: 15px;
+  user-select: none;
 }
 
 .nav {

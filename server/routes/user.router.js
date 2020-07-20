@@ -62,7 +62,7 @@ router.delete('/delete', rejectUnauthenticated, (req, res) => {
     .catch(error => console.log(error));
 });
 
-router.get('/:id', (req, res ) => {
+router.get('/:id', rejectUnauthenticated, (req, res ) => {
   const queryText = `
     SELECT id, fullname, username, avatar_url, bio FROM "user"
       WHERE id = $1;`;

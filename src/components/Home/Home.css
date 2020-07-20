@@ -23,7 +23,18 @@
 }
 
 .library.game h2 {
-  margin: 0 0 4px 0;
-  border-bottom: 1px solid mintcream;
+  display: inline-block;
+  margin: 0;
   width: fit-content;
+}
+
+.line {
+  padding-right: 2rem;
+  border-top: 1px solid mintcream;
+}
+
+.library.game .icon.button {
+  float: right;
+  margin: 0 0 0 0.5rem;
+  padding: 0.25rem;
 }

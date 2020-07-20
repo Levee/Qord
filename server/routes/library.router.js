@@ -1,9 +1,10 @@
 const express = require('express');
 const axios = require('axios');
 const pool = require('../modules/pool');
+const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 const router = express.Router();
 
-router.get('/', (req, res) => {
+router.get('/', rejectUnauthenticated, (req, res) => {
   const queryText = `
     SELECT * FROM library WHERE user_id = $1 ORDER BY id DESC;`;
   pool
@@ -12,7 +13,7 @@ router.get('/', (req, res) => {
     .catch(error => res.send(error).status(500));
 });
 
-router.get('/game/:id', (req, res) => {
+router.get('/game/:id', rejectUnauthenticated, (req, res) => {
   const appid = req.params.id
   axios
     .get(`http://store.steampowered.com/api/appdetails?appids=${appid}`)
@@ -20,7 +21,7 @@ router.get('/game/:id', (req, res) => {
     .catch(error => res.send(error).status(500));
 });
 
-router.post('/save', (req, res) => {
+router.post('/save', rejectUnauthenticated, (req, res) => {
   const queryText = `
     INSERT INTO "library" (user_id, app_id, title, developers, publishers, description)
     VALUES ($1, $2, $3, $4, $5, $6);`;
