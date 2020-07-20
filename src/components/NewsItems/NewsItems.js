@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import Swal from 'sweetalert2';
 
 class NewsItems extends Component {
   render() {
@@ -13,10 +14,16 @@ class NewsItems extends Component {
             user_id: user.id,
             app_id: current.steam_appid,
             title: current.name,
-            developers: current.developers,
-            publishers: current.publishers,
+            developers: current.developers[0],
+            publishers: current.publishers[0],
             description: current.short_description,
           }});
+          Swal.fire({
+            text: `${current.name} has been added to your library!`,
+            icon: 'success',
+            background: '#21252c',
+            timer: 4000,
+          });
         }}>
           <div className='shine'>
           </div>Save to Library

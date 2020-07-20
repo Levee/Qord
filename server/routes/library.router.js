@@ -5,7 +5,7 @@ const router = express.Router();
 
 router.get('/', (req, res) => {
   const queryText = `
-    SELECT * FROM library WHERE user_id = $1 GROUP BY user_id;`;
+    SELECT * FROM library WHERE user_id = $1 ORDER BY id DESC;`;
   pool
     .query(queryText, [req.user.id])
     .then(result => res.send(result.rows).status(200))

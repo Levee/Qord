@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import './Home.css';
 
 // const features = [
 //   'Ability to visit other user\'s pages',
@@ -20,7 +21,7 @@ class Home extends Component {
     return (
       <div className='content'>
         <h1 id='welcome'>
-          Welcome, {user.fullname}! Here's what you missed:
+          Welcome, {user.fullname}! Here's what is currently in your library:
         </h1>
             {/* <h2>Future Features:</h2>
         <ul style={{listStyle: 'none'}}>
@@ -30,7 +31,27 @@ class Home extends Component {
             )
           }
         </ul> */}
-
+        <div className='content library'>
+          {library !== [] ? (
+            <>
+              {library.map((game, i) =>
+                <>
+                  <div key={i} className='library game'>
+                    <h2>{game.title}</h2>
+                    <em>Developed by {game.developers}<br />
+                    Published by {game.publishers}</em><br />
+                    <p>
+                      {game.description}
+                    </p>
+                  </div>
+                  <div className='divider'></div>
+                </>
+              )}
+            </>
+          ) : (
+            <h2>No games to show. Add your favorites in the Games tab!</h2>
+          )}
+        </div>
       </div>
     )
   }

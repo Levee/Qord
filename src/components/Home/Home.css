@@ -1,0 +1,29 @@
+.content.library {
+  width: 60%;
+  margin: 0 auto;
+  padding: 0;
+  border: 1px solid #db2cb596;
+  border-radius: 15px;
+  background-color: #21252c;
+  text-align: justify;
+}
+
+.content.library:hover {
+  border: 1px solid #db2cb5c9;
+}
+
+.library.game {
+  padding: 2rem;
+  background-color: #21252c;
+  border-radius: 15px;
+}
+
+.library.game:hover {
+  filter: brightness(125%);
+}
+
+.library.game h2 {
+  margin: 0 0 4px 0;
+  border-bottom: 1px solid mintcream;
+  width: fit-content;
+}
