@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import './Friends.css';
 
 class Friends extends Component {
   state = {
-    display_page: false,
+    val: '',
   }
 
   componentDidMount() {
@@ -20,9 +21,10 @@ class Friends extends Component {
     return (
       <>
         <div className='content'>
-          {/* <p>This is the friends page!</p> */}
           <input
+            value={this.state.val}
             onChange={e =>{
+              this.setState({ val: e.target.value });
               if(e.target.value) {
                 dispatch({ type: 'FETCH_SEARCH_RESULTS', payload: e.target.value });
               } else {
@@ -34,90 +36,87 @@ class Friends extends Component {
             name='search'
             list='search-results'
           />
-          <div id='search-results'>
+          <ul id='search-results'>
             {
               search.map((user, i) =>
                 <div
                   key={i}
-                  // user_id={user.id}
-                  // onClick={e => {
-                  //   console.log(user);
-                  //   dispatch({ type: 'FETCH_USER_PAGE', payload: user.id });
-                  //   this.setState({ display_page: true });
-                  // }}
                 >
-                  {user.id}, {user.fullname}<br />
-                  @{user.username}<br />
-                  <button
-                    onClick={() => {
-                      dispatch({ type: 'FRIEND_REQ_SEND', payload: { id: user.id }});
-                    }}
-                  >
-                    Add Friend
-                  </button>
+                  <div className='search-result'>
+                    {user.fullname}<br />
+                    @{user.username}
+                  </div>
+                  <div className='button green' onClick={() => {
+                    dispatch({ type: 'FRIEND_REQ_SEND', payload: { id: user.id } });
+                    this.setState({ val: '' });
+                  }}>
+                    <div className='shine'>
+                    </div>Add Friend
+                  </div>
                 </div>
               )
             }
-          </div>
-          {/* {this.state.display_page && <User />} */}
-          {friends &&
-            <>
-              <h2>Outgoing Requests</h2>
+          </ul>
+          {friends && <div className='content friends'>
+            <div className='friend-lists'>
               <ul>
+                <h2>Outgoing Requests</h2>
                 {friends.req_out.map((friend, i) =>
                   <div key={i}>
+                    <div className='divider'></div>
                     <h4>{friend[0]}</h4>
-                    <button 
-                      onClick={() => {
-                        dispatch({ type: 'FRIEND_REQ_CANCEL', payload: { id: friend[1] } });
-                        console.log(friend[1]);
-                      }}
-                    >
-                      Cancel
-                    </button>
+                    <div className='button red' onClick={() => {
+                      dispatch({ type: 'FRIEND_REQ_CANCEL', payload: { id: friend[1] } });
+                    }}>
+                      <div className='shine'>
+                      </div>Cancel
+                    </div>
                   </div>
                 )}
               </ul>
-              <h2>Incoming Requests</h2>
+            </div>
+            <div className='friend-lists'>
               <ul>
+                <h2>Incoming Requests</h2>
                 {friends.req_in.map((friend, i) =>
                   <div key={i}>
+                    <div className='divider'></div>
                     <h4>{friend[0]}</h4>
-                    <button
-                      onClick={() => {
-                        dispatch({ type: 'FRIEND_REQ_ACCEPT', payload: { id: friend[1] } });
-                      }}
-                    >
-                      Accept
-                    </button>
-                    <button
-                      onClick={() => {
-                        dispatch({ type: 'FRIEND_REQ_REJECT', payload: { id: friend[1] } });
-                      }}
-                    >
-                      Reject
-                    </button>
+                    <div className='button green' onClick={() => {
+                      dispatch({ type: 'FRIEND_REQ_ACCEPT', payload: { id: friend[1] } });
+                    }}>
+                      <div className='shine'>
+                      </div>Accept
+                    </div>
+                    <div className='button red' onClick={() => {
+                      dispatch({ type: 'FRIEND_REQ_REJECT', payload: { id: friend[1] } });
+                    }}>
+                      <div className='shine'>
+                      </div>Reject
+                    </div>
                   </div>
                 )}
               </ul>
-              <h2>All Friends</h2>
+            </div>
+            <div className='friend-lists'>
               <ul>
+                <h2>All Friends</h2>
                 {friends.acc.map((friend, i) =>
                   <div key={i}>
+                    <div className='divider'></div>
                     <h4>{friend[1]}</h4>
-                    <h5><em>@{friend[2]}</em></h5>
-                    <button
-                      onClick={() => {
-                        dispatch({ type: 'DELETE_FRIEND', payload: { id: friend[0] } });
-                      }}
-                    >
-                      Remove
-                    </button>
+                    {/* <h5><em>@{friend[2]}</em></h5> */}
+                    <div className='button red' onClick={() => {
+                      dispatch({ type: 'DELETE_FRIEND', payload: { id: friend[0] } });
+                    }}>
+                      <div className='shine'>
+                      </div>Remove
+                    </div>
                   </div>
                 )}
               </ul>
-            </>
-          }
+            </div>
+          </div>}
         </div>
       </>
     )

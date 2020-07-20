@@ -13,6 +13,7 @@ const userRouter = require('./routes/user.router');
 const friendRouter = require('./routes/friend.router');
 const gameRouter = require('./routes/game.router');
 const searchRouter = require('./routes/search.router');
+const libraryRouter = require('./routes/library.router');
 
 // Body parser middleware
 app.use(bodyParser.json());
@@ -30,6 +31,7 @@ app.use('/api/user', userRouter);
 app.use('/api/friends', friendRouter);
 app.use('/api/steam', gameRouter);
 app.use('/api/search', searchRouter);
+app.use('/api/library', libraryRouter);
 
 // Serve static files
 app.use(express.static('build'));

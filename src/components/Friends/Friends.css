@@ -1,0 +1,47 @@
+.content.friends {
+  text-align: center;
+  padding: 1%;
+}
+
+.friend-lists {
+  display: inline-flex;
+  width: 30%;
+  margin: 0.5%;
+  padding: 1%;
+  border: 1px solid #db2cb596;
+  border-radius: 5px;
+  background-color: #21252c;
+}
+
+.friend-lists:hover {
+  border: 1px solid #db2cb5c9;
+}
+
+.friend-lists ul {
+  padding: 0;
+  text-align: left;
+  width: 100%;
+  vertical-align: middle;
+}
+
+.friend-lists ul h4 {
+  display: inline-block;
+}
+
+.friend-lists ul .button, .search-results ul .button {
+  float: right;
+  right: 0;
+  margin: 1rem initial;
+}
+
+.divider {
+  width: 95%;
+  margin: 0.5rem auto;
+  height: 2px;
+  background-color: grey;
+}
+
+.search-results ul .search-result {
+  display: inline-block;
+  width: 30%;
+}

@@ -5,17 +5,6 @@ const router = express.Router();
 
 // get pending friend requests
 router.get('/outgoing', (req, res) => {
-  // const queryText = `
-  //   SELECT array_agg(
-  //     CASE
-  //       WHEN "request".from = "refUid1".id THEN "refUid2".fullname
-  //       WHEN "request".from = "refUid2".id THEN "refUid1".fullname
-  //     END) AS "outgoing" FROM "request"
-  //     JOIN "user" AS "refUid1" ON "refUid1".id = "request".uid1
-  //     JOIN "user" AS "refUid2" ON "refUid2".id = "request".uid2
-  //     JOIN "user" AS "isFrom" ON "isFrom".id = "request".from
-  //     WHERE "request".from = $1
-  //     GROUP BY "isFrom".fullname;`;
   const queryText = `
     SELECT array_agg(
       ARRAY[
@@ -34,6 +23,24 @@ router.get('/outgoing', (req, res) => {
       JOIN "user" AS "isFrom" ON "isFrom".id = "request".from
       WHERE "request".from = $1
       GROUP BY "isFrom".fullname;`;
+  // const queryText = `
+  //   SELECT COALESCE(array_agg(
+  //     ARRAY[
+  //       CASE
+  //         WHEN "request".from = "refUid1".id THEN "refUid2".fullname
+  //         WHEN "request".from = "refUid2".id THEN "refUid1".fullname
+  //       END
+  //       ,
+  //       CASE
+  //         WHEN "isFrom".id = "refUid1".id THEN CAST("refUid2".id AS VARCHAR)
+  //         WHEN "isFrom".id = "refUid2".id THEN CAST("refUid1".id AS VARCHAR)
+  //       END
+  //     ]), ARRAY['No Outgoing Requests']) AS "outgoing" FROM "request"
+  //     JOIN "user" AS "refUid1" ON "refUid1".id = "request".uid1
+  //     JOIN "user" AS "refUid2" ON "refUid2".id = "request".uid2
+  //     JOIN "user" AS "isFrom" ON "isFrom".id = "request".from
+  //     WHERE "request".from = 1
+  //     GROUP BY "isFrom".fullname;`;
   pool
     .query(queryText, [req.user.id])
     .then(result => res.send(result.rows).status(200))

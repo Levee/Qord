@@ -29,28 +29,18 @@ const newsReducer = (state = null, action) => {
 
 const loadingReducer = (state = null, action) => {
   switch (action.type) {
-    case 'LOADING_BEGIN':
+    case 'LOADING_BEGIN_GAMES':
       return true;
-    case 'LOADING_END':
+    case 'LOADING_END_GAMES':
       return false;
     default:
       return state;
   }
-}
-
-const libraryReducer = (state = [], action) => {
-  switch (action.type) {
-    case 'SET_LIBRARY':
-      return [...action.payload];
-    default:
-      return state;
-  }
-}
+} 
 
 export default combineReducers({
   games: gamesReducer,
   search: searchReducer,
   news: newsReducer,
   loading: loadingReducer,
-  library: libraryReducer,
 });

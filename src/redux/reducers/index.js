@@ -5,6 +5,7 @@ import user from './userReducer';
 import friends from './friendReducer';
 import games from './gameReducer';
 import search from './searchReducer';
+import library from './libraryReducer';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -19,6 +20,7 @@ const rootReducer = combineReducers({
   friends, // will have an array of friends for the user who is currently logged in
   games,
   search,
+  library,
 });
 
 export default rootReducer;

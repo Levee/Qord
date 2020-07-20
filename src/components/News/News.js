@@ -35,12 +35,13 @@ class News extends Component {
   }
 
   getNews = () => {
+    const { dispatch } = this.props;
     if(!this.state.id || !this.state.count) {
       alert('Error! Inputs cannot be empty.');
       return;
     }
-    console.log(this.state.id);
-    this.props.dispatch({ type: 'FETCH_NEWS', payload: { id: this.state.id, count: this.state.count } });
+    dispatch({ type: 'FETCH_NEWS', payload: { id: this.state.id, count: this.state.count } });
+    dispatch({ type: 'FETCH_CURRENT_GAME', payload: this.state.id });
   }
 
   render() {

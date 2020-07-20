@@ -3,18 +3,24 @@ import { connect } from 'react-redux';
 
 class NewsItems extends Component {
   render() {
-    const { news } = this.props;
+    const { user, news, current, dispatch } = this.props;
     const renderHTML = (escapedHTML) => React.createElement("div", { dangerouslySetInnerHTML: { __html: escapedHTML } });
     return (
       <div className='content games list'>
         <h1>AppID: {news.appid}</h1>
-        <button
-          onClick={e => {
-
-          }}
-        >
-          Save to Library
-        </button>
+        <div className='button pink' onClick={() => {
+          dispatch({ type: 'SAVE_CURRENT_GAME', payload: {
+            user_id: user.id,
+            app_id: current.steam_appid,
+            title: current.name,
+            developers: current.developers,
+            publishers: current.publishers,
+            description: current.short_description,
+          }});
+        }}>
+          <div className='shine'>
+          </div>Save to Library
+        </div>
         {
           news.newsitems.map((x, i) =>
             <div className='news-item' key={i}>
@@ -44,7 +50,9 @@ class NewsItems extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    news: state.games.news
+    user: state.user.user,
+    news: state.games.news,
+    current: state.library.current,
   }
 }
 
